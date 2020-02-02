@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { fetchStories } from '../actions/storyAction';
 import { Link } from 'react-router-dom';
 import StoriesList from '../components/storiesList';
+import imgDefault from '../default.png';
 
 class Stories extends Component {
 
@@ -19,7 +20,7 @@ class Stories extends Component {
               <div className="card-body">
                 <h6 className="card-title">{story.title}</h6>
                 <div className="card-subtitle mb-10 small">{story.domain}</div>
-                <img src={story.cover_image_url} className="img-fluid img-thumbnail card-img-top mb-10" alt="cover"/>
+                <img src={story.cover_image_url ? story.cover_image_url : imgDefault} className="img-fluid img-thumbnail card-img-top mb-10" alt="cover"/>
                 <div className="text-card-footer text-muted">{story.score} points by {story.by} {story.time_ago} ago | {story.descendants} comments</div>
               </div>
             </div>
