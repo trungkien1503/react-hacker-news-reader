@@ -1,4 +1,4 @@
-const apiURL = 'https://iwa-hacker-news.herokuapp.com';
+import config from '../config.js';
 
 export function fetchStories() {
   return (dispatch) => {
@@ -7,10 +7,9 @@ export function fetchStories() {
       fetch('https://hacker-news.firebaseio.com/v0/beststories.json?print=pretty&orderBy="$key"&limitToFirst=30')
       .then(response => response.json())
       .then(storyIds => {
-        storyIds.map(function(id) {
+        storyIds.forEach(function(id) {
           return (
-            // fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json?print=pretty`)
-            fetch(`${apiURL}/api/v1/posts/${id}.json`)
+            fetch(`${config['API_URL']}/api/v1/posts/${id}.json`)
             .then(response => response.json())
             .then(story => {
               dispatch({type: 'FETCHING_STORIES', payload: story})
