@@ -5,7 +5,10 @@ export default function storyReducer(state={stories: [], singleStory: [], loadin
       return {...state, loading:true};
 
     case 'FETCHING_STORIES':
-      return {...state, stories: [...state.stories, action.payload], loading: false};
+      return {...state, stories: action.payload, loading: false};
+
+    case 'LOADMORE_STORIES':
+      return {...state, stories: state.stories.concat(action.payload), loading: false};
 
     case 'LOADING_SINGLE_STORY':
       return {...state, loading:true}

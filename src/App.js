@@ -14,8 +14,8 @@ import Container from 'react-bootstrap/Container';
 function App() {
   return (
     <Router>
-      <Header/>
       <Container>
+        <Header/>
         <Route exact path="/" component={Stories} />
         <Route exact path="/stories/:id" component={Story} />
       </Container>
