@@ -1,14 +1,13 @@
-const dev = {
-  API_URL: 'http://localhost:3001'
-};
+// const dev = {
+//   API_URL: 'http://localhost:3001'
+// };
 
-const prod = {
+const config = {
   API_URL: 'https://iwa-hacker-news.herokuapp.com'
 };
-
-const config = process.env.REACT_APP_STAGE === 'production'
-  ? prod
-  : dev;
+// const config = process.env.NODE_ENV === 'production'
+//   ? prod
+//   : dev;
 
 export default {
   ...config
