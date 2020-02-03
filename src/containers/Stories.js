@@ -1,36 +1,28 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchStories } from '../actions/storyAction';
-import { Link } from 'react-router-dom';
+import { loadMoreStories } from '../actions/loadMoreAction';
 import StoriesList from '../components/storiesList';
-import imgDefault from '../default.png';
+import InfiniteScroll from 'react-infinite-scroller';
+import config from '../config.js';
+let page = 0;
 
 class Stories extends Component {
-
-  componentDidMount() {
-    this.props.fetchStories();
+  getMorePhotos = () => {
+    page++;
+    this.props.loadMoreStories(page);
   }
 
   render() {
-    const list = this.props.stories.map((story, index) => {
-      return (
-        <div className="col-xs-6 col-sm-3" key={index}>
-          <Link to={`stories/${story.id}`} className="story-link">
-            <div className="card iwa-card mb-10">
-              <div className="card-body">
-                <h6 className="card-title">{story.title}</h6>
-                <div className="card-subtitle mb-10 small">{story.domain}</div>
-                <img src={story.cover_image_url ? story.cover_image_url : imgDefault} className="img-fluid img-thumbnail card-img-top mb-10" alt="cover"/>
-                <div className="text-card-footer text-muted">{story.score} points by {story.by} {story.time_ago} ago | {story.descendants} comments</div>
-              </div>
-            </div>
-          </Link>
-        </div>
-      )
-    })
 
     return (
-      <StoriesList list={list} loading={this.props.loading} />
+      <InfiniteScroll
+        pageStart={this.page}
+        loadMore={this.getMorePhotos}
+        hasMore={true} // TODO: Implement logic hasMore page
+        threshold={100}
+      >
+        <StoriesList stories={this.props.stories} loading={this.props.loading}></StoriesList>
+      </InfiniteScroll>
     )
   }
 }
@@ -41,4 +33,4 @@ const mapStatetoProps = state => {
     loading: state.storyReducer.loading
   }
 }
-export default connect(mapStatetoProps, {fetchStories})(Stories)
+export default connect(mapStatetoProps, {loadMoreStories})(Stories)
