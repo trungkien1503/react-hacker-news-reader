@@ -2,7 +2,6 @@ import config from '../config.js';
 
 export function loadMoreStories(page) {
   return (dispatch) => {
-    dispatch({type: 'LOADING_STORIES'});
     return (
       fetch(`${config['API_URL']}/api/v1/posts.json?page=${page}`)
       .then(resq => resq.json())
